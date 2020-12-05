@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title>摸鱼魔方</title>
+  <link rel="stylesheet" type="text/css" href="assets/styles/cube.css">
+  <link rel="stylesheet" type="text/css" href="assets/styles/doodle2.css">
+  <link rel="stylesheet" type="text/css" href="assets/styles/certificate2.css">
+
+  <!-- compiled & minified cube code -->
+  <script charset="utf-8" src="assets/scripts/tween.r12.js"></script>
+  <script charset="utf-8" src="assets/scripts/three.js"></script>
+  <script charset="utf-8" src="assets/scripts/cuber.min.js"></script>
+  <style>
+    .cube_nav {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #time_nav{
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 99;
+    }
+    #txt{
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      line-height: 20px;
+      width: 70%;
+      text-align: right;
+    }
+    #time{
+      font-size: 20px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cube_nav">
+    <div id="time_nav">
+      已摸鱼
+      <span id="time"> 0 </span>s
+    </div>
+    <div style="width: 100%;height: 100%;">
+      <div style="text-align:center;clear:both;">
+      </div>
+    
+      <div id="bg"></div>
+      <div id="container"></div>
+      <div id="uipanel" class="fadeTransition">
+        <div id="movecounter">0</div>
+        <div id="buttonpanel">
+          <div id="sharebubble" class="fadeTransition" style="opacity:0">
+            <input id="shareshortlink" type="text" value="google.com/doodles" readonly />
+            <div id="sharegplus" class="bubbleicon SPRITE_google_plus_64_2x"></div>
+            <div id="sharefacebook" class="bubbleicon SPRITE_facebook_64_2x"></div>
+            <div id="sharetwitter" class="bubbleicon SPRITE_twitter_64_2x"></div>
+            <div id="shareemail" class="bubbleicon SPRITE_email_64_2x"></div>
+          </div>
+          <div id="uibuttons">
+            <div id="sharebutton" class="bubbleicon SPRITE_share_64_2x"></div>
+            <div id="helpbutton" class="bubbleicon SPRITE_help_64_2x"></div>
+            <div id="searchbutton" class="bubbleicon SPRITE_search_64_2x"></div>
+          </div>
+        </div>
+        <div id="helpbubble" class="bubble" style="display:none">
+          <span class="pointerup SPRITE_carrot_grey_up_2x"></span>
+          <div id="helpimage" class="one"></div>
+          <div id="helptext" class="helptext"></div>
+          <div id="helpnext" class="helptext"></div>
+          <span class="pointerdown SPRITE_carrot_down_2x"></span><br>
+        </div>
+      </div>
+    </div>
+    <div id="txt"></div>
+  </div>
+  <script charset="utf-8" src="assets/scripts/iecss3d.js"></script>
+  <script charset="utf-8" src="assets/scripts/ierenderer.js"></script>
+  <script charset="utf-8" src="assets/scripts/deviceMotion.js"></script>
+  <script charset="utf-8" src="assets/scripts/locked.js"></script>
+  <!-- Certificate js -->
+  <script charset="utf-8" src="assets/scripts/textBox.js"></script>
+  <script charset="utf-8" src="assets/scripts/ResizeableTextBox.3.js"></script>
+  <script charset="utf-8" src="assets/scripts/divBox.js"></script>
+  <script charset="utf-8" src="assets/scripts/frames.js"></script>
+  <script charset="utf-8" src="assets/scripts/certificate.js"></script>
+  <script charset="utf-8" src="assets/scripts/main3.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+  <script>
+    const time = document.getElementById('time');
+    const txt = document.getElementById('txt');
+    const url = "https://service-59m9jmx2-1304316567.gz.apigw.tencentcs.com/release/jitang"
+    let hour = 0; // 时
+    let min = 0;  // 分
+    let sec = 0;  // 秒
+    setInterval(() => {
+      sec += 1
+      if(sec >= 60){
+        sec = 0
+        min += 1;
+      }
+      if(min >= 60){
+        min = 0;
+        hour += 1;
+      }
+      const hourContext = `${hour == 0 ? '' : hour + '<span style="font-size: medium;font-weight: normal;"> h</span>'}`
+      const minContext = `${min == 0 ? '' : min + '<span style="font-size: medium;font-weight: normal;"> m</span>'}`
+      time.innerHTML = `${hourContext} ${minContext} ${sec} `;
+    }, 1000);
+    axios({url}).then(res => {
+      txt.innerHTML = res.data || ''
+    })
+  </script>
+
+</body>
+
+</html>
