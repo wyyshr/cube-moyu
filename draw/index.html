@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>画笔 ✏️</title>
+	<link rel="stylesheet" href="./style.css">
+	<style>
+		.back_btn {
+			margin: 0 40px;
+		}
+
+		.delete_btn {
+			margin-right: 40px;
+		}
+
+		.cancle_btn {
+			margin-left: 40px;
+			transform: rotateY(180deg);
+		}
+
+		.btn {
+			position: fixed;
+			bottom: 30px;
+			right: 30px;
+			z-index: 1;
+			display: flex;
+			padding: 0 30px;
+		}
+
+		.btn>svg {
+			width: 120px;
+			height: 120px;
+			/* margin: 10px; */
+		}
+	</style>
+</head>
+
+<body>
+	<!-- partial:index.partial.html -->
+	<div id="app">
+		<svg id="stage" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+			<g id="draw"></g>
+			<g id="translated"></g>
+			<g id="guide"></g>
+			<defs>
+				<linearGradient id="linear-gradient" y1="458.32" x2="121.95" y2="458.32" gradientUnits="userSpaceOnUse">
+					<stop offset="0" stop-color="#ff9191" />
+					<stop offset="1" stop-color="#b55858" />
+				</linearGradient>
+				<linearGradient id="linear-gradient-2" x1="0.05" y1="185.82" x2="121.76" y2="185.82"
+					gradientUnits="userSpaceOnUse">
+					<stop offset="0" stop-color="#fff" />
+					<stop offset="1" stop-color="#ffdd7c" />
+				</linearGradient>
+
+				<path class="pencil"
+					d="M61.14,506.47c33.56,0,60.8-9.43,60.81-21a7.4,7.4,0,0,0-.35-2.33l0-73h-11l-42.89,0H53.94L0,410.22l0,75.44c.09,0,.17.12.26.17H.34a.21.21,0,0,1,0,.08C.85,497.29,27.89,506.48,61.14,506.47Z"
+					style="fill: url(#linear-gradient)" />
+				<path class="pencil" d="M121.63,429.88l0-68.29v-7.84h-11L.06,353.81l0,76.13,60.8,0,49.78,0Z"
+					style="fill: #e3dedb" />
+				<path class="pencil"
+					d="M0,405.22l121.6-.05V396.9L0,397v8.27ZM0,419l121.6-.05v-8.27L0,410.73V419Zm0-27.56,121.6-.05v-8.27L0,383.17v8.27Z" />
+				<path class="pencil" d="M121.65,371.58l.11-261.37L61,0,55.5,10,.16,110.26.05,371.63h121.6Z"
+					style="fill: url(#linear-gradient-2)" />
+				<path class="pencil" d="M37.1,43.33H84.89L61,0Z" />
+				<path class="pencil" d="M.26,485.83c-.09-.05-.17-.13-.26-.17v.17Z" style="fill: #ff9191" />
+				<path class="pencil"
+					d="M121.65,371.58l.11-261.37-30.41,28.6L61,110.23l-30.41,28.6L.16,110.26.05,371.63h60.8l30.4,0Z"
+					style="fill: #ffc700" />
+				<path class="pencil" d="M121.65,371.58l.11-261.37-30.41,28.6-.1,232.78Z" style="fill: #ffda00" />
+				<path class="pencil" d="M30.55,138.83.16,110.26.05,371.63h30.4Z" style="fill: #ff8a00" />
+				<path class="pencil" d="M61,110.23l-30.41,28.6-.1,232.79h30.4Z" style="fill: #ffa100" />
+			</defs>
+		</svg>
+	</div>
+	<div class="btn">
+		<svg class="delete_btn" onclick="delete_draw()" t="1641631486022" class="icon" viewBox="0 0 1024 1024" version="1.1"
+			xmlns="http://www.w3.org/2000/svg" p-id="3769" width="200" height="200">
+			<path
+				d="M966.634555 284.146597v681.94111c0 31.392302-25.44774 56.840042-56.840042 56.840042H114.205487C82.813185 1022.927749 57.365445 997.480008 57.365445 966.087707V284.146597h909.26911z"
+				fill="#D6DFE8" p-id="3770"></path>
+			<path
+				d="M966.634555 852.439791v113.658638c0 31.392302-25.44774 56.840042-56.840042 56.840042H114.205487C82.813185 1022.938471 57.365445 997.490731 57.365445 966.098429V852.439791c0 31.392302 25.44774 56.840042 56.840042 56.840041h795.589026c31.392302 0 56.840042-25.44774 56.840042-56.840041z"
+				fill="#BBC7D3" p-id="3771"></path>
+			<path
+				d="M398.341361 75.772783V56.840042C398.341361 25.44774 423.789102 0 455.181403 0h113.637194C600.210898 0 625.658639 25.44774 625.658639 56.840042v18.932741h359.911874c20.928201 0 37.893361 16.96516 37.893361 37.893362v75.757771c0 20.928201-16.96516 37.893361-37.893361 37.893361H38.429487C17.501286 227.317277 0.536126 210.352117 0.536126 189.423916v-75.757771c0-20.928201 16.96516-37.893361 37.893361-37.893362H398.341361z"
+				fill="#BFC8D0" opacity=".718" p-id="3772"></path>
+			<path
+				d="M625.658639 397.805236h113.658638v454.634555H625.658639V397.805236z m-340.975916 0h113.658638v454.634555H284.682723V397.805236z"
+				fill="#B0BECC" p-id="3773"></path>
+		</svg>
+		<svg class="back_btn" onclick="cancle()" t="1641629919011" class="icon" viewBox="0 0 1025 1024" version="1.1"
+			xmlns="http://www.w3.org/2000/svg" p-id="5506" width="200" height="200">
+			<path
+				d="M0 511.148087a511.148087 511.148087 0 1 0 511.148087-511.148087 511.148087 511.148087 0 0 0-511.148087 511.148087z m0 0"
+				fill="#FF9E11" p-id="5507"></path>
+			<path
+				d="M263.028286 491.554077l231.294509-243.221298v149.084858a268.139767 268.139767 0 0 1 49.62396-4.898502 184.439268 184.439268 0 0 1 127.787022 47.707155 272.612313 272.612313 0 0 1 68.366057 104.998336 506.888519 506.888519 0 0 1 31.520798 151.001664l1.916806 63.89351-24.066556-57.291181c-18.529118-42.595674-70.282862-76.246256-149.084859-95.840266a622.322795 622.322795 0 0 0-106.489184-15.7604v152.066556z m0 0"
+				fill="#FFFFFF" p-id="5508"></path>
+		</svg>
+		<svg class="cancle_btn" onclick="cancle1()" t="1641629919011" class="icon" viewBox="0 0 1025 1024" version="1.1"
+			xmlns="http://www.w3.org/2000/svg" p-id="5506" width="200" height="200">
+			<path
+				d="M0 511.148087a511.148087 511.148087 0 1 0 511.148087-511.148087 511.148087 511.148087 0 0 0-511.148087 511.148087z m0 0"
+				fill="#FF9E11" p-id="5507"></path>
+			<path
+				d="M263.028286 491.554077l231.294509-243.221298v149.084858a268.139767 268.139767 0 0 1 49.62396-4.898502 184.439268 184.439268 0 0 1 127.787022 47.707155 272.612313 272.612313 0 0 1 68.366057 104.998336 506.888519 506.888519 0 0 1 31.520798 151.001664l1.916806 63.89351-24.066556-57.291181c-18.529118-42.595674-70.282862-76.246256-149.084859-95.840266a622.322795 622.322795 0 0 0-106.489184-15.7604v152.066556z m0 0"
+				fill="#FFFFFF" p-id="5508"></path>
+		</svg>
+
+	</div>
+	<!-- partial -->
+	<script src='https://unpkg.com/pop.svg@0.1.14/dist/index.js'></script>
+	<script src="./xeZOMK.JS"></script>
+	<script src="./script.js"></script>
+	<script>
+		let del_line = ''
+		let isFre = false
+		function cancle() {
+			const lines = document.getElementsByClassName("pencil-line")
+			// 删除空白线
+			for (let i = lines.length; i > 0; i--) {
+				if (!lines[i - 1].getAttribute("d")) {
+					lines[i - 1].remove()
+				}
+			}
+			// 删除最后一条线
+			del_line = lines[lines.length - 1] || ''
+			lines[lines.length - 1].remove()
+			isFre = false
+		}
+		function cancle1() {
+			!isFre && document.querySelector("#draw").appendChild(del_line)
+			isFre = true
+		}
+		function delete_draw() {
+			document.querySelector("#draw").innerHTML = ""
+		}
+	</script>
+</body>
+
+</html>

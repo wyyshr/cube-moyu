@@ -1,0 +1,138 @@
+* {
+  padding: 0;
+  border: 0;
+}
+
+body {
+  overflow: hidden;
+}
+
+#bat_icon {
+  position: fixed;
+  z-index: 1;
+  width: 100px;
+  height: 100px;
+  right: -150px;
+  top: -150px;
+  transition: all 2s;
+}
+
+.clude_nav {
+  position: absolute;
+  width: 100px;
+  height: 40px;
+  top: 50px;
+  left: -500px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: all 2s;
+}
+.clude_icon {
+  width: 100px;
+  height: 100px;
+}
+
+.sky_icon {
+  position: fixed;
+  top: 150%;
+  left: 20px;
+  /* transform: translate(-50%, -50%); */
+  width: 80px;
+  height: 80px;
+  z-index: 9;
+  transition: all 2s;
+}
+
+.moon {
+  width: 50px;
+  height: 50px;
+}
+
+.sunRise {
+  top: 20px;
+}
+
+.sunDown {
+  top: 150%;
+}
+
+.moonRise {
+  top: 20px;
+}
+
+.moonDown {
+  top: 150%;
+}
+
+#container {
+  /* background-image: url("assets/imgs/mountain.svg"); 
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: contain; */
+  /* transition: all 2s */
+}
+
+.cube {
+  /* opacity: 0.74; */
+}
+
+.cube_nav {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  transition: all 2s
+}
+
+#time_nav {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 99;
+}
+
+#txt {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  line-height: 20px;
+  width: 90%;
+  text-align: right;
+}
+
+#time {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#switch {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 99;
+}
+
+#switch img {
+  width: 30px;
+  height: 30px;
+}
+
+.christmas_tree {
+  position: relative;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  display: none;
+}
+
+/* .icon_switch { */
+  /* width: 30px; */
+  /* height: 30px; */
+  /* position: fixed; */
+  /* top: 5px; */
+  /* bottom: 30px; */
+  /* right: 30px; */
+  /* z-index: 10; */
+/* } */

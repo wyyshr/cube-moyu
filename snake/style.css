@@ -1,0 +1,84 @@
+* {
+  padding: none;
+  margin: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #5f5f5f;
+}
+
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  color: aliceblue;
+  transform: translate(-50%, -50%);
+}
+
+.cont {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#game_nav {
+  width: 90%;
+  height: 70%;
+  /* margin: 0 auto; */
+  position: relative;
+  margin-top: 20px;
+  background-color: #363636;
+}
+
+#game_nav>canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.btns {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.btns_right {
+  bottom: 5px;
+}
+/* .btns_left {
+  top: 5px;
+} */
+.icons {
+  width: 80px;
+  height: 80px;
+  /* margin: 0 10px; */
+}
+
+.up_btn {
+  position: relative;
+  top: 15px;
+}
+
+.down_btn {
+  transform: rotateZ(180deg);
+  position: relative;
+  top: -15px;
+}
+
+.left_btn {
+  transform: rotateZ(270deg);
+  margin-right: 30px;
+}
+
+.right_btn {
+  transform: rotateZ(90deg);
+  margin-left: 20px;
+}

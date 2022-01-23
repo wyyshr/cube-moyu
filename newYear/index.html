@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>新年快乐！</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./year_style.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,800italic,800,600,700,400'>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+  <div class="year">
+    <div class="title" textVal = "2022">
+      <div class="title__inner" textVal = "2022"></div>
+    </div>
+  </div>
+  <audio id="ad" src="../assets/audio/fireworks.mp3"></audio>
+  <div class="hover" onclick="jump_click()"></div>
+  <svg t="1641117690079" class="icon_btn" onclick="fireworks_click()" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7748" width="200" height="200"><path d="M476.686 635.534v17.658c0 33.116-8.346 47.584-17.192 62.896-8.502 14.708-18.124 31.392-18.124 60.706a17.654 17.654 0 0 0 17.658 17.658 17.654 17.654 0 0 0 17.658-17.658c0-19.856 5.622-29.58 13.398-43.05 9.76-16.916 21.918-37.97 21.918-80.554v-17.658h-35.316z" fill="#C83741" p-id="7749"></path><path d="M547.316 635.534v370.808A17.654 17.654 0 0 0 564.974 1024a17.654 17.654 0 0 0 17.658-17.658V635.534h-35.316z" fill="#963737" p-id="7750"></path><path d="M423.714 194.094v441.44a17.66 17.66 0 0 0 17.658 17.658h141.26a17.66 17.66 0 0 0 17.658-17.658v-441.44H423.714z" fill="#FF4B4B" p-id="7751"></path><path d="M423.716 194.102h176.576v70.63H423.716z" fill="#C83741" p-id="7752"></path><path d="M374.192 185.694c53.96-68.426 99.086-139.342 121.866-176.71 7.302-11.978 24.584-11.978 31.886 0 22.778 37.368 67.906 108.286 121.864 176.71 8.328 10.56 0.846 26.058-12.604 26.058H386.796c-13.448 0-20.93-15.498-12.604-26.058z" fill="#FF4B4B" p-id="7753"></path><path d="M600.29 300.04l-176.576 52.972v-70.63L600.29 229.41z m0 141.26l-176.576 52.974v-70.63L600.29 370.67z m0 141.262l-176.576 52.972v-70.63l176.576-52.972z" fill="#FFCF65" p-id="7754"></path><path d="M600.29 264.726V229.41l-117.72 35.316z" fill="#FFB450" p-id="7755"></path></svg>
+  
+  <script src="../assets/scripts/jquery.js"></script>
+  <script src="https://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+  <script src="./script.js"></script>
+  <script>
+    function setYear() {
+      const D = new Date()
+      const year = D.getFullYear().toString();
+      const t = document.querySelector(".title")
+      const t1 = document.querySelector(".title__inner")
+      t.attributes[1].value = year
+      t1.attributes[1].value = year
+    }
+    setYear()
+    function jump_click() {
+      window.location.href = '../menu.html'
+    }
+  </script>
+</body>
+
+</html>
