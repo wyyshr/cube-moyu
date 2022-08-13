@@ -19,6 +19,10 @@
       overflow: hidden
     }
 
+    body {
+      position: relative
+    }
+
     .loading {
       background-color: #e4e4e4;
       width: 100vw;
@@ -30,7 +34,7 @@
       left: 0;
       top: 0;
       flex-wrap: wrap;
-      z-index: 1
+      z-index: 2
     }
 
     .loading p {
@@ -54,6 +58,39 @@
     .enterBtn:hover {
       cursor: pointer
     }
+
+    .control_plate {
+      position: fixed;
+      left: 90px;
+      bottom: 40px;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, .2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: all 1s
+    }
+
+    .control {
+      width: 50%;
+      height: 50%;
+      border-radius: 50%;
+      background-color: hsla(0, 0%, 100%, .5);
+      position: relative
+    }
+
+    .jumpBtn {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      width: 200px;
+      height: 100px;
+      z-index: 1
+    }
   </style>
 </head>
 
@@ -62,8 +99,12 @@
     <p></p>
     <p class="percentage">耐心等会儿，已经加载 0% 了</p>
   </div>
-  <script src="./manage.2016bbef.js" type="module"></script>
-  <script src="./src.7ad2d370.js" type="module"></script>
+  <div class="control_plate">
+    <div class="control"></div>
+  </div>
+  <div class="jumpBtn"> </div>
+  <script src="./manage.5f0329b6.js" type="module"></script>
+  <script src="./src.a87eb1bf.js" type="module"></script>
 </body>
 
 </html>
