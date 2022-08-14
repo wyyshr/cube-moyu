@@ -114,8 +114,9 @@
   </div>
   <div class="jumpBtn"></div>
   <div class="log_info"></div>
-  <script src="./manage.5f0329b6.js" type="module"></script>
-  <script src="./src.07b44847.js" type="module"></script>
+  <script>function t() { var t = navigator.userAgent; return !!["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"].filter(function (e) { return t.includes(e) }).length } var e = { W: !1, A: !1, S: !1, D: !1, Space: !1, shift: !1, E: !1 }, n = !1, c = { X: 0, Y: 0 }, o = [0, 0, 0], a = 35, i = document.querySelector(".control_plate"), l = document.querySelector(".control"), s = document.querySelector(".jumpBtn"), u = { x: 0, y: 0 }; function r(t) { var e = t.touches[0], o = e.clientX, a = e.clientY; n = !0, c.X = o, c.Y = a, i.style.opacity = 1 } function y(t) { var e = t.touches[0], n = e.clientX, i = e.clientY, s = n - c.X, u = i - c.Y, r = Math.abs(s) + Math.abs(u), y = s > 0, h = u > 0, p = { x: 0, y: 0 }, f = a * Math.abs(s / r), x = Math.sqrt(a * a - f * f); Math.abs(s) > f ? p.x = y ? f : -f : p.x = s, Math.abs(u) > x ? p.y = h ? x : -x : p.y = u, l.style.top = p.y + "px", l.style.left = p.x + "px", o[0] = p.x, o[2] = p.y } function h(t) { n = !1, l.style.top = "0px", l.style.left = "0px", i.style.opacity = .1, o = [0, 0, 0] } function p(t) { e.Space = !0, u.x = t.touches[0].clientX, u.y = t.touches[0].clientY } function f(t) { var n = u.x, c = u.y, o = t.touches[0].clientX - n, a = t.touches[0].clientY - c; (Math.abs(a) > 90 || Math.abs(o) > 90) && (e.Space = !1) } function f() { e.Space = !1 } t() || (i.style.display = "none");</script>
+  <script src="./manage.fa142f94.js" type="module"></script>
+  <script src="./src.c28491a3.js" type="module"></script>
 </body>
 
 </html>
