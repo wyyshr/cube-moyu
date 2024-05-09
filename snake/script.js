@@ -30,9 +30,13 @@ function init() {
 }
 init()
 
+let scoreNum = 0
 function start() {
   const title = document.querySelector(".title")
   title.style.display = 'none'
+  const score = document.querySelector(".score")
+  scoreNum = 0
+  score.innerHTML = scoreNum
   const interval = setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     target.draw()
@@ -41,10 +45,14 @@ function start() {
 
     if (snake.eatTarget(target)) {
       target.getRandomLocation()
+      scoreNum++
+      score.innerHTML = scoreNum
     }
     if (snake.checkCollision()) {
       title.style.display = ''
       clearInterval(interval)
+    //   scoreNum = 0
+    //   score.innerHTML = scoreNum
     }
   }, 100);
 }

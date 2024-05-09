@@ -11,6 +11,9 @@ class Snake {
     this.y = y
     this.size = size
     this.canvasDom = canvasDom
+    this.sound_press = document.getElementById("offline-sound-press")
+    this.sound_hit = document.getElementById("offline-sound-hit")
+    this.sound_reached = document.getElementById("offline-sound-reached")
   }
 
   isContrary(dir) {
@@ -88,11 +91,13 @@ class Snake {
         break;
     }
     this.dirStatus = direction
+    this.sound_press.play()
   }
 
   eatTarget (target) {
     if(this.x == target.x && this.y == target.y) {
       this.targetNum++
+      this.sound_reached.play()
       return true
     }
     return false
@@ -109,6 +114,7 @@ class Snake {
         this.ySpeed = this.size * 1
         this.targetNum = 0
         this.tails = []
+        this.sound_hit.play()
         return true
       }
     }
