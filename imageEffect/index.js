@@ -6,6 +6,7 @@ const vs = `
         gl_Position = vec4(position.x, position.y, 0.0, 1.0);
     }
 `;
+const loading = document.querySelector(".loading")
 const defines = { MODE: 0 };
 const selects = [ "手绘", "体素", "卡通" ]
 const size = Math.min(window.innerWidth, window.innerHeight)
@@ -21,7 +22,9 @@ const noiseTex = loader.load("./assets/noise.png")
 noiseTex.wrapS = THREE.RepeatWrapping
 noiseTex.wrapT = THREE.RepeatWrapping
 
-const tex = loader.load("./assets/GGBond.jpg")
+const tex = loader.load("./assets/GGBond.jpg", () => {
+    loading.style.display = 'none'
+})
 const g = new THREE.PlaneGeometry(2, 2)
 const m = new THREE.ShaderMaterial({
     uniforms: {
@@ -639,7 +642,6 @@ function loop(time) {
     frame++
 }
 loop()
-window.plane = plane
 
 // upload
 let video;
@@ -650,7 +652,7 @@ document.querySelector(".upload").addEventListener('change', function (e) {
         alert("请上传图片或视频")
         return
     }
-    
+    loading.style.display = 'block'
     const reader = new FileReader();
     reader.onload = function (e) {
         if (video) video.src = ""
@@ -666,6 +668,7 @@ document.querySelector(".upload").addEventListener('change', function (e) {
             }
             img.src = e.target.result
             imgDiv.src = e.target.result
+            loading.style.display = 'none'
         }
         if (file.type.includes("video")) {
             video = document.createElement("video")
@@ -677,6 +680,7 @@ document.querySelector(".upload").addEventListener('change', function (e) {
                 plane.material.uniforms.iChannel0.value = texture
                 plane.material.uniforms._ChannelResolution.value.x = video.videoWidth
                 plane.material.uniforms._ChannelResolution.value.y = video.videoHeight
+                loading.style.display = 'none'
             }
             video.src = e.target.result
             imgDiv.src = "./assets/video_preview.png"

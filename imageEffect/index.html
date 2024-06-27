@@ -63,9 +63,23 @@
         .preview img {
           width: 30px;
         }
+        .loading {
+          position: absolute;
+          z-index: 5;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          text-align: center;
+          line-height: 100vh;
+          background-color: #000;
+          color: #fff;
+          font-size: 20px;
+        }
     </style>
 </head>
 <body>
+  <div class="loading">加载中...</div>
   <div class="preview">
     <img class="image" src="./assets/GGBond.jpg" alt="123">
   </div>
