@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>摸鱼小游戏</title>
+  <title>摸鱼助手</title>
   <style>
     body {
       background-color: rgb(245, 245, 245);
@@ -97,7 +97,7 @@
       <span>画笔</span>
       <span style="font-size: 30px;">✏️</span>
     </div>
-    <div class="item" onclick="goto('block')">
+    <div class="item" onclick="goto('building-blocks')">
       <span>积木</span>
       <svg t="1641571282408" class="icon" viewBox="0 0 1062 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
         p-id="4584" width="200" height="200">
@@ -231,7 +231,7 @@
           fill="#6E6E96" p-id="4630"></path>
       </svg>
     </div>
-    <!--<div class="item" onclick="goto('dragon')">
+    <!--<div class="item" onclick="goto('dragon-run')">
       <span>恐龙</span>
       <svg t="1641732443859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2382" width="200" height="200"><path d="M633.38157881 62h251.64473731v225h-251.64473731z" p-id="2383" fill="#ffffff"></path><path d="M885.02631612 100.48684238h47.36842031v186.51315762h-47.36842031z" p-id="2384" fill="#ffffff"></path><path d="M553.44736865 62h79.93421016v44.40789492h-79.93421016z" p-id="2385" fill="#ffffff"></path><path d="M512 100.48684238h76.97368388v50.32894746h-76.97368388z" p-id="2386" fill="#ffffff"></path><path d="M512 150.81578984h121.38157881v136.18421016h-121.38157881z" p-id="2387" fill="#ffffff"></path><path d="M512 287h207.23684239v79.93421016h-207.23684239z" p-id="2388" fill="#ffffff"></path><path d="M719.23684239 337.32894746h118.42105253v29.6052627h-118.42105254z" p-id="2389" fill="#ffffff"></path><path d="M512 366.93421016h165.78947373v278.28947372h-165.78947373z" p-id="2390" fill="#ffffff"></path><path d="M677.78947373 461.67105254h79.93421015v38.48684238h-79.93421015z" p-id="2391" fill="#ffffff"></path><path d="M719.23684239 500.15789492h38.48684149v38.48684151h-38.4868415z" p-id="2392" fill="#ffffff"></path><path d="M467.59210508 375.81578984h44.40789492v461.84210508h-44.40789492z" p-id="2393" fill="#ffffff"></path><path d="M512 645.22368388h32.56578984v316.77631612h-32.56578984z" p-id="2394" fill="#ffffff"></path><path d="M544.56578984 917.59210508h59.21052628v44.40789492h-59.21052628z" p-id="2395" fill="#ffffff"></path><path d="M544.56578984 645.22368388h88.81578897v56.25h-88.81578897z" p-id="2396" fill="#ffffff"></path><path d="M541.60526357 701.47368388h44.40789404v47.3684212h-44.40789404z" p-id="2397" fill="#ffffff"></path><path d="M408.38157881 417.26315761h59.21052627v375.98684239h-59.21052627z" p-id="2398" fill="#ffffff"></path><path d="M266.27631612 547.52631612h142.10526269v242.76315761H266.27631612z" p-id="2399" fill="#ffffff"></path><path d="M346.21052627 461.67105254h62.17105254v85.85526358H346.21052627z" p-id="2400" fill="#ffffff"></path><path d="M307.72368388 506.07894746h38.48684239v41.44736866H307.72368388z" p-id="2401" fill="#ffffff"></path><path d="M298.84210508 790.28947373h109.53947373v2.96052627H298.84210508z" p-id="2402" fill="#ffffff"></path><path d="M298.84210508 793.25h124.34210508v44.40789492H298.84210508z" p-id="2403" fill="#ffffff"></path><path d="M298.84210508 837.65789492h85.85526357v38.48684151H298.84210508z" p-id="2404" fill="#ffffff"></path><path d="M298.84210508 876.14473643h38.48684238v85.85526357H298.84210508z" p-id="2405" fill="#ffffff"></path><path d="M337.32894746 917.59210508h53.28947373v44.40789492H337.32894746z" p-id="2406" fill="#ffffff"></path><path d="M91.60526357 375.81578984h41.44736778v248.68421016H91.60526357z" p-id="2407" fill="#ffffff"></path><path d="M133.05263135 458.71052627h41.44736865v198.35526357H133.05263135z" p-id="2408" fill="#ffffff"></path><path d="M174.5 500.15789492h41.44736865v201.31578896H174.5z" p-id="2409" fill="#ffffff"></path><path d="M215.94736865 547.52631612h50.32894747v153.94736776H215.94736865z" p-id="2410" fill="#ffffff"></path></svg>
     </div>-->
@@ -247,43 +247,15 @@
       <span>方块</span>
       <span style="font-size: 30px;">🟧</span>
     </div>
+    <div class="item" onclick="goto('imageEffect')">
+      <span>滤镜</span>
+      <svg t="1719478640944" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7955" width="200" height="200"><path d="M258.896999 822.251751a213.333333 213.333333 0 1 0 213.333333-369.504172 213.333333 213.333333 0 1 0-213.333333 369.504172Z" fill="#93A8FF" p-id="7956"></path><path d="M402.665751 573.672072a213.333333 213.333333 0 1 0 213.333333-369.504172 213.333333 213.333333 0 1 0-213.333333 369.504172Z" fill="#2953FF" p-id="7957"></path><path d="M550.038865 824.467915a213.333333 213.333333 0 1 0 213.333333-369.504172 213.333333 213.333333 0 1 0-213.333333 369.504172Z" fill="#FCCA1E" p-id="7958"></path></svg>
+    </div>
   </div>
   <script>
     // const car_game_url = 'https://wyyshr-5gyryoqyea114b87-1304316567.tcloudbaseapp.com/cube-moyu/car-game/index.html'
-    function goto(location) {
-      switch (location) {
-        case 'cube':
-          window.location.href = 'cube/index.html'
-          break;
-        case 'draw':
-          window.location.href = 'draw/index.html'
-          break;
-        case 'block':
-          window.location.href = 'building-blocks/index.html'
-          break;
-        case 'dragon':
-          window.location.href = 'dragon-run/index.html'
-          break;
-        case 'snake':
-          window.location.href = 'snake/index.html'
-          break;
-        case 'car':
-          // window.location.href = car_game_url
-          window.location.href = 'car-game/index.html'
-          break;
-        case 'train':
-          // window.location.href = car_game_url
-          window.location.href = 'train/index.html'
-          break;
-        case 'blocks':
-          window.location.href = 'blocks/index.html'
-          break;
-        case 'slap':
-          window.location.href = 'slap/index.html'
-          break;
-        default:
-          break;
-      }
+    function goto(page) {
+      window.location.href = page+'/index.html'
     }
   </script>
 </body>
