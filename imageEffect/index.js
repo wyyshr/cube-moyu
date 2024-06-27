@@ -633,18 +633,21 @@ manager.onLoad = () => {
     plane.material.uniforms._ChannelResolution.value.set(tex.image.width, tex.image.height, noiseTex.image.width, noiseTex.image.height)
 }
 
-let frame = 0
+let video, frame = 0
+
 function loop(time) {
     requestAnimationFrame(loop)
     plane.material.uniforms._Time.value = time / 1000
     plane.material.uniforms.iFrame.value = frame
     renderer.render(scene, camera)
+    if (video && !video.src) {
+        video.paused && video.play()
+    }
     frame++
 }
 loop()
 
 // upload
-let video;
 const imgDiv = document.querySelector(".image")
 document.querySelector(".upload").addEventListener('change', function (e) {
     const file = e.target.files[0];
@@ -672,8 +675,9 @@ document.querySelector(".upload").addEventListener('change', function (e) {
         }
         if (file.type.includes("video")) {
             video = document.createElement("video")
+            window.video = video
             video.loop = true
-            video.autoplay = true
+            video.muted = true
             video.oncanplay = () => {
                 video.play()
                 const texture = new THREE.VideoTexture(video)
@@ -702,3 +706,12 @@ select.onchange = () => {
     defines.MODE = Number(select.value)
     plane.material.needsUpdate = true
 }
+
+renderer.domElement.addEventListener("touchstart", () => {
+    timeout = setTimeout(() => {
+        
+    }, 1000)
+})
+renderer.domElement.addEventListener("touchend", () => {
+    clearTimeout(timeout)
+})
