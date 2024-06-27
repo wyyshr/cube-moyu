@@ -673,6 +673,7 @@ document.querySelector(".upload").addEventListener('change', function (e) {
         if (file.type.includes("video")) {
             video = document.createElement("video")
             video.loop = true
+            video.autoplay = true
             video.oncanplay = () => {
                 video.play()
                 const texture = new THREE.VideoTexture(video)
