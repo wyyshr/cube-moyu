@@ -367,7 +367,7 @@ function loop(time) {
     plane.material.uniforms._Time.value = time / 1000
     plane.material.uniforms.iFrame.value = frame
     renderer.render(scene, camera)
-    if (video && !video.src) {
+    if (video && video.src) {
         video.paused && video.play()
     }
     frame++
@@ -415,6 +415,9 @@ document.querySelector(".upload").addEventListener('change', function (e) {
                 plane.material.uniforms._ChannelResolution.value.x = video.videoWidth
                 plane.material.uniforms._ChannelResolution.value.y = video.videoHeight
                 loading.style.display = 'none'
+            }
+            video.onerror = () => {
+                alert("视频加载失败")
             }
             video.src = e.target.result
             imgDiv.src = "./assets/video_preview.png"
