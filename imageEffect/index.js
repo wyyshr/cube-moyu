@@ -8,7 +8,7 @@ const vs = `
 `;
 const loading = document.querySelector(".loading")
 const defines = { MODE: 0 };
-const selects = [ "手绘", "卡通", "铅笔", "纸板" ]
+const selects = [ "手绘", "卡通", "铅笔", "纸板", "描边" ]
 const size = Math.min(window.innerWidth, window.innerHeight)
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000)
@@ -347,22 +347,121 @@ const m = new THREE.ShaderMaterial({
         }
 
     #elif MODE == 3
+    vec2 uvmapping(vec2 uv1, vec2 fragCoord) {
+        vec2 uv = uv1;
+        vec2 imgSize = _ChannelResolution.xy;
+        vec2 viewPort = iResolution.xy;
+
+        float imgRatio = imgSize.x / imgSize.y;
+        float screenRatio = viewPort.x / viewPort.y;
+
+        vec2 resizeTarget = viewPort;
+
+        vec2 startPos = vec2(0.0);
+        if(imgRatio > screenRatio) {
+            resizeTarget.x = viewPort.x;
+            resizeTarget.y = resizeTarget.x / imgRatio;
+            startPos.y = (viewPort.y - resizeTarget.y) / 2.0;
+        } else {
+            resizeTarget.y = viewPort.y;
+            resizeTarget.x = resizeTarget.y * imgRatio;
+            startPos.x = (viewPort.x - resizeTarget.x) / 2.0;
+        }
+
+        //窗口中与图像宽高比保持一致的区域内渲染图像
+        if(fragCoord.x >= startPos.x && fragCoord.x <= startPos.x + resizeTarget.x && fragCoord.y >= startPos.y && fragCoord.y <= startPos.y + resizeTarget.y) {
+            uv.x = (fragCoord.x - startPos.x) / resizeTarget.x;
+            uv.y = (fragCoord.y - startPos.y) / resizeTarget.y;
+        } else {
+            uv = vec2(-1.,-1.);
+        }
+        return uv;
+    }
     void mainImage( out vec4 fragColor, in vec2 fragCoord )
     {
         vec2 uv = fragCoord.xy / iResolution.xy;
-        
+        uv = uvmapping(uv, fragCoord);
         vec3  col = texture( iChannel0, vec2(uv.x,uv.y) ).xyz;
         float lum = dot(col,vec3(0.333));
         vec3 ocol = col;
-        
-        
-            vec3  nor = normalize( vec3( dFdx(lum), 64.0/iResolution.x, dFdy(lum) ) );
-            
-                float lig = clamp( 0.5 + 1.5*dot(nor,vec3(0.7,0.2,-0.7)), 0.0, 1.0 );
-                col *= vec3(lig);
+
+        vec3  nor = normalize( vec3( dFdx(lum), 64.0/iResolution.x, dFdy(lum) ) );
+        float lig = clamp( 0.5 + 1.5*dot(nor,vec3(0.7,0.2,-0.7)), 0.0, 1.0 );
+        col *= vec3(lig);
         
         fragColor = vec4( col, 1.0 );
     }
+
+    #elif MODE == 4
+
+    vec2 uvmapping(vec2 uv1, vec2 fragCoord) {
+        vec2 uv = uv1;
+        vec2 imgSize = _ChannelResolution.xy;
+        vec2 viewPort = iResolution.xy;
+
+        float imgRatio = imgSize.x / imgSize.y;
+        float screenRatio = viewPort.x / viewPort.y;
+
+        vec2 resizeTarget = viewPort;
+
+        vec2 startPos = vec2(0.0);
+        if(imgRatio > screenRatio) {
+            resizeTarget.x = viewPort.x;
+            resizeTarget.y = resizeTarget.x / imgRatio;
+            startPos.y = (viewPort.y - resizeTarget.y) / 2.0;
+        } else {
+            resizeTarget.y = viewPort.y;
+            resizeTarget.x = resizeTarget.y * imgRatio;
+            startPos.x = (viewPort.x - resizeTarget.x) / 2.0;
+        }
+
+        //窗口中与图像宽高比保持一致的区域内渲染图像
+        if(fragCoord.x >= startPos.x && fragCoord.x <= startPos.x + resizeTarget.x && fragCoord.y >= startPos.y && fragCoord.y <= startPos.y + resizeTarget.y) {
+            uv.x = (fragCoord.x - startPos.x) / resizeTarget.x;
+            uv.y = (fragCoord.y - startPos.y) / resizeTarget.y;
+        } else {
+            uv = vec2(-1.,-1.);
+        }
+        return uv;
+    }
+
+    void mainImage( out vec4 fragColor, in vec2 fragCoord )
+    {
+        vec2 uv;
+        vec3 col;
+        
+        const mat3 sobelX = mat3(-1.0, -2.0, -1.0,
+                        0.0,  0.0, 0.0,
+                        1.0,  2.0,  1.0);
+        const mat3 sobelY = mat3(-1.0,  0.0,  1.0,
+                        -2.0,  0.0, 2.0,
+                        -1.0,  0.0,  1.0);  
+        
+        float sumX = 0.0;	// x-axis change
+        float sumY = 0.0;	// y-axis change
+        
+        for(int i = -1; i <= 1; i++)
+        {
+            for(int j = -1; j <= 1; j++)
+            {
+                // texture coordinates should be between 0.0 and 1.0
+                float x = (fragCoord.x + float(i))/iResolution.x;	
+                float y =  (fragCoord.y + float(j))/iResolution.y;
+                uv = vec2(x, y);
+                uv = uvmapping(uv, fragCoord + vec2(i, j));
+                
+                // Convolve kernels with image
+                sumX += length(texture( iChannel0, uv ).xyz) * float(sobelX[1+i][1+j]);
+                sumY += length(texture( iChannel0, uv ).xyz) * float(sobelY[1+i][1+j]);
+            }
+        }
+        
+        float g = abs(sumX) + abs(sumY);
+        col = vec3(step(1.0, g));
+
+        fragColor.xyz = col;
+    }
+
     #endif
 
     void main() {
