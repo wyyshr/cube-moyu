@@ -8,7 +8,7 @@ const vs = `
 `;
 const loading = document.querySelector(".loading")
 const defines = { MODE: 0 };
-const selects = [ "手绘", "卡通", "铅笔" ]
+const selects = [ "手绘", "卡通", "铅笔", "纸板" ]
 const size = Math.min(window.innerWidth, window.innerHeight)
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000)
@@ -345,6 +345,24 @@ const m = new THREE.ShaderMaterial({
             
             fragColor = vec4(res, 1.0); 
         }
+
+    #elif MODE == 3
+    void mainImage( out vec4 fragColor, in vec2 fragCoord )
+    {
+        vec2 uv = fragCoord.xy / iResolution.xy;
+        
+        vec3  col = texture( iChannel0, vec2(uv.x,uv.y) ).xyz;
+        float lum = dot(col,vec3(0.333));
+        vec3 ocol = col;
+        
+        
+            vec3  nor = normalize( vec3( dFdx(lum), 64.0/iResolution.x, dFdy(lum) ) );
+            
+                float lig = clamp( 0.5 + 1.5*dot(nor,vec3(0.7,0.2,-0.7)), 0.0, 1.0 );
+                col *= vec3(lig);
+        
+        fragColor = vec4( col, 1.0 );
+    }
     #endif
 
     void main() {
@@ -367,64 +385,66 @@ function loop(time) {
     plane.material.uniforms._Time.value = time / 1000
     plane.material.uniforms.iFrame.value = frame
     renderer.render(scene, camera)
-    if (video && video.src) {
-        video.paused && video.play()
-    }
     frame++
 }
 loop()
 
 // upload
+let type = 0
+const reader = new FileReader();
 const imgDiv = document.querySelector(".image")
-document.querySelector(".upload").addEventListener('change', function (e) {
-    const file = e.target.files[0];
+document.querySelector(".upload").addEventListener('change', function (evt) {
+    video = null
+    const file = evt.target.files[0]
     if (!file.type.includes("image") && !file.type.includes("video")) {
         alert("请上传图片或视频")
         return
     }
+    type = file.type.includes("image") ? 0 : 1;
     loading.style.display = 'block'
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        if (video) video.src = ""
-        plane.material.uniforms.iChannel0.value.dispose()
-        if (file.type.includes("image")) {
-            const img = new Image()
-            img.onload = function () {
-                const texture = new THREE.Texture(img);
-                texture.needsUpdate = true;
-                plane.material.uniforms.iChannel0.value = texture
-                plane.material.uniforms._ChannelResolution.value.x = img.width
-                plane.material.uniforms._ChannelResolution.value.y = img.height
-            }
-            img.onerror = () => {
-                alert("图片加载失败")
-            }
-            img.src = e.target.result
-            imgDiv.src = e.target.result
-            loading.style.display = 'none'
-        }
-        if (file.type.includes("video")) {
-            video = document.createElement("video")
-            video.loop = true
-            video.muted = true
-            video.oncanplay = () => {
-                video.play()
-                const texture = new THREE.VideoTexture(video)
-                texture.needsUpdate = true;
-                plane.material.uniforms.iChannel0.value = texture
-                plane.material.uniforms._ChannelResolution.value.x = video.videoWidth
-                plane.material.uniforms._ChannelResolution.value.y = video.videoHeight
-                loading.style.display = 'none'
-            }
-            video.onerror = () => {
-                alert("视频加载失败")
-            }
-            video.src = e.target.result
-            imgDiv.src = "./assets/video_preview.png"
-        }
-    };
+    
     reader.readAsDataURL(file);
 });
+const loadListener = reader.addEventListener("load", e => {
+    plane.material.uniforms.iChannel0.value.dispose()
+    if (type == 0) {
+        const img = new Image()
+        img.onload = function () {
+            const texture = new THREE.Texture(img);
+            texture.needsUpdate = true;
+            plane.material.uniforms.iChannel0.value = texture
+            plane.material.uniforms._ChannelResolution.value.x = img.width
+            plane.material.uniforms._ChannelResolution.value.y = img.height
+        }
+        img.onerror = () => { alert("图片加载失败") }
+        img.src = e.target.result
+        imgDiv.src = e.target.result
+        loading.style.display = 'none'
+        return;
+    } else {
+        video = document.createElement("video")
+        video.loop = true
+        video.muted = true
+        video.onerror = () => {
+            if (!video || type != 1) return;
+            alert("视频加载失败")
+        }
+        video.src = e.target.result
+        imgDiv.src = "./assets/video_preview.png"
+        video.oncanplay = () => {
+            if (!video || type != 1) return;
+            video.play()
+            const texture = new THREE.VideoTexture(video)
+            texture.needsUpdate = true;
+            plane.material.uniforms.iChannel0.value = texture
+            plane.material.uniforms._ChannelResolution.value.x = video.videoWidth
+            plane.material.uniforms._ChannelResolution.value.y = video.videoHeight
+            loading.style.display = 'none'
+        }
+        return
+    }
+})
+reader.removeEventListener("load", loadListener)
 // end upload
 
 const select = document.querySelector("#select")
