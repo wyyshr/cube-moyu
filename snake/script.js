@@ -37,12 +37,19 @@ function start() {
   const score = document.querySelector(".score")
   scoreNum = 0
   score.innerHTML = scoreNum
-  const interval = setInterval(() => {
+  let animId = null, startTime = performance.now()
+  
+  animId = requestAnimationFrame(loop)
+  function loop() {
+    
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    target.draw()
-    snake.update()
-    snake.draw()
+    const now = performance.now()
+    const dt = (now - startTime) * 0.001
 
+    target.draw()
+    snake.update(dt)
+    snake.draw()
+    startTime = now
     if (snake.eatTarget(target)) {
       target.getRandomLocation()
       scoreNum++
@@ -50,11 +57,29 @@ function start() {
     }
     if (snake.checkCollision()) {
       title.style.display = ''
-      clearInterval(interval)
-    //   scoreNum = 0
-    //   score.innerHTML = scoreNum
+      cancelAnimationFrame(animId)
+      return
     }
-  }, 100);
+    animId = requestAnimationFrame(loop)
+  }
+  // const interval = setInterval(() => {
+  //   ctx.clearRect(0, 0, canvas.width, canvas.height)
+  //   target.draw()
+  //   snake.update()
+  //   snake.draw()
+
+  //   if (snake.eatTarget(target)) {
+  //     target.getRandomLocation()
+  //     scoreNum++
+  //     score.innerHTML = scoreNum
+  //   }
+  //   if (snake.checkCollision()) {
+  //     title.style.display = ''
+  //     clearInterval(interval)
+  //   //   scoreNum = 0
+  //   //   score.innerHTML = scoreNum
+  //   }
+  // }, 100);
 }
 
 const left_btn = document.querySelector(".left_btn")
@@ -67,20 +92,31 @@ window.addEventListener("touchstart", e => {
     case left_btn.firstElementChild:
     case left_btn:
       snake.changeDirection('left')
+      btn_animation(left_btn)
       break;
     case right_btn.firstElementChild:
     case right_btn:
         snake.changeDirection('right')
+      btn_animation(right_btn)
         break;
     case up_btn.firstElementChild:
     case up_btn:
       snake.changeDirection('up')
+      btn_animation(up_btn)
       break;
     case down_btn.firstElementChild:
     case down_btn:
         snake.changeDirection('down')
+      btn_animation(down_btn)
         break;
     default:
       break;
   }
 })
+
+function btn_animation(btn, time = 0.2) {
+  btn.style.animation = `touched ${time}s`
+  setTimeout(() => {
+    btn.style.animation = ''
+  }, time*1000);
+}
