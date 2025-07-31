@@ -128,7 +128,7 @@ class Snake {
   updateTails(dt) {
     // 添加当前位置到历史
     this.positionHistory.unshift({ x: this.x, y: this.y });
-    const tailSpacing = 30
+    const tailSpacing = 10
     // 保持历史长度足够长
     const minHistoryLength = this.tails.length * tailSpacing + 10;
     while (this.positionHistory.length > minHistoryLength) {
