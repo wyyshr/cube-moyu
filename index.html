@@ -294,6 +294,9 @@
         alert("请使用移动设备访问")
         return
       }
+      if (page == 'wild' && isMob) {
+        page += '-mob'
+      }
       window.location.href = page+'/'
     }
     function isMobile() {
